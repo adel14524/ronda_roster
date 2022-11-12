@@ -20,10 +20,10 @@ class HomeController extends Controller
 
         $countCar = Car::count();
         $Car = Car::latest()->first();
-        $latestCar = $Car->created_at;
+        $latestCar = !empty($Car->created_at) ? $Car->created_at : "today";
         $countOfficer = Officer::count();
         $Officer = Officer::latest()->first();
-        $latestOfficer = $Officer->created_at;
+        $latestOfficer = !empty($Officer->created_at) ? $Officer->created_at : "today";
 
         return view('admin.index', compact('countCar', 'countOfficer', 'latestCar', 'latestOfficer'));
     }

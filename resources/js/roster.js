@@ -164,6 +164,7 @@ $(document).ready(function () {
 
     function listOfficer(){
 
+        // console.log($('meta[name="csrf-token"]').attr('content'));
         $.ajax({
             type: 'POST',
             url : '/officers/ajax',
@@ -172,10 +173,13 @@ $(document).ready(function () {
                         optionOfficer : true,
                     },
             success: function (results) {
-
+                console.log(results)
+                console.log(results.length)
+                // reJSON.parse(results);
                 if (results.length > 0) {
 
                     let option = ''
+
 
                     results.forEach(elem => {
                         option += '<option value="'+elem.id+'">'+elem.batch_num+' | '+elem.name+'</option>'

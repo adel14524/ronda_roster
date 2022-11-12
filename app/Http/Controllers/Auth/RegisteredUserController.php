@@ -33,17 +33,18 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->toArray());
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        // dd($request->toArray());
+        // $request->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        // ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            // 'profile_image' => '-',
         ]);
 
         event(new Registered($user));
@@ -51,7 +52,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         $notification = array(
-            'message' => 'Pengguna Telah Berjaya Didaftarkan ! Selamat Datang', 
+            'message' => 'Pengguna Telah Berjaya Didaftarkan ! Selamat Datang',
             'alert-type' => 'success'
         );
 

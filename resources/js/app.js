@@ -12,6 +12,7 @@ window.Swal = Swal;
 import select2 from 'select2'
 import 'select2/dist/css/select2.min.css'
 window.select2 = select2;
+// require('select2')
 
 require('./car');
 require('./officer');
