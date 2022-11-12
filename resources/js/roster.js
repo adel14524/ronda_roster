@@ -225,7 +225,7 @@ $(document).ready(function () {
                                     '<div class="form-group col-md-4">' +
                                         '<label for="anggotaCuti'+ cuti +'">Anggota</label>' +
                                         '<select id="anggotaCuti'+ cuti +'" name="anggotaCuti'+ cuti +'" class="js-select-single form-control">' +
-                                            '<option selected>Sila Pilih Anggota</option>' +
+                                            '<option value="" selected>Sila Pilih </option>' +
                                             option +
                                         '</select>'+
                                     '</div>' +
@@ -367,21 +367,19 @@ $(document).ready(function () {
 
                     let count = $('#countTugas').val();
                     let tugas = $('#AddTugas').val()
-                    let html = '<div class="form-row removeclassTugas'+tugas+'" id="fadeOutdiv">'+
-                                '    <div class="form-group col-md-6">'+
+                    let html = '<div class="row mt-4 removeclassTugas'+tugas+'" id="fadeOutdiv">'+
+                                '    <div class="form-group col-md-7 col-sm-6">'+
                                         '<label for="startDate">Lawatan Lokasi Sasaran Penting</label>'+
                                 '        <input type="text" class="form-control penugasan" id="penugasan" name="penugasan'+ tugas +'" placeholder="Masukkan Jenis Penugasan" />'+
                                 '    </div>'+
-                                '    <div class="form-group col-md-6">'+
+                                '    <div class="form-group col-md-5 col-sm-6">'+
                                         '<label for="inputEmail4">Tindakan Penyelia Syif</label>'+
                                         '<div class="input-group">'+
-                                            '<select class="js-select-mult form-control"'+
-                                                'name="pegawaiPenugasan'+ tugas +'[]"  style="width: 90%;">'+
-                                                '<option value=""></option>' +
+                                            '<select class="js-select-mult form-control" data-placeholder="Sila Pilih"'+ 'data-allow-clear="true" multiple="multiple" name="pegawaiPenugasan'+ tugas +'[]"  style="width: 90%;">'+
                                                 option +
                                             '</select>'+
                                             '<div class="input-group-btn">'+
-                                                '<button class="btn btn-danger BuangTugas" type="button" value="'+ tugas +'" ><i class="fas fa-minus mt-2"></i></button>'+
+                                                '<button class="btn btn-sm btn-danger BuangTugas" type="button" value="'+ tugas +'" ><i class="fas fa-minus mt-2"></i></button>'+
                                             '</div>'+
                                 '        </div>'+
                                 '    </div>'+
@@ -464,7 +462,7 @@ $(document).ready(function () {
                                         });
 
                                         let html =
-                                        '<div class="form-row removeclassronda_' + group_id + count +'">'+
+                                        '<div class="row mt-4 removeclassronda_' + group_id + count +'">'+
                                             '<div class="form-group col-md-4">'+
                                                 '<label for="ronda_'+ group_id +'_Co_Name'+count+'">Co-Pilot (C)</label>'+
                                                 '<select id="ronda_'+ group_id +'_Co_Name'+count+'" name="ronda_'+ group_id +'_Co'+count+'" class="js-select-single form-control" style="width: 100%;">'+
