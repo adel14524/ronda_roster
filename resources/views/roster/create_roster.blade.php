@@ -66,7 +66,7 @@
                                                 <div class="row mb-3">
                                                     <label for="ketuaUnitMpv" class="col-sm-3 col-form-label">KETUA UNIT MPV</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-select-single form-control" name="ketuaUnitMpv" id="ketuaUnitMpv" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="ketuaUnitMpv" id="ketuaUnitMpv" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}" class="selected-officer"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -78,7 +78,7 @@
                                                 <div class="row mb-3">
                                                     <label for="sarjanMejarMpv" class="col-sm-3 col-form-label">SARJAN MEJAR MPV</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-select-single form-control" name="sarjanMejarMpv" id="sarjanMejarMpv" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="sarjanMejarMpv" id="sarjanMejarMpv" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -90,7 +90,7 @@
                                                 <div class="row mb-3">
                                                     <label for="sarjanPentadbiranBpjkk" class="col-sm-3 col-form-label">SARJAN PENTADBIRAN BPJKK</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-select-single form-control" name="PentadbiranBpjkk" id="sarjanPentadbiranBpjkk" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="PentadbiranBpjkk" id="sarjanPentadbiranBpjkk" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -102,7 +102,7 @@
                                                 <div class="row mb-3">
                                                     <label for="pengaturTugas" class="col-sm-3 col-form-label">PENGATUR TUGAS</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-select-single form-control" name="pengaturTugas" id="pengaturTugas" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="pengaturTugas" id="pengaturTugas" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -114,7 +114,7 @@
                                                 <div class="row mb-3">
                                                     <label for="penyeliaKenderaan" class="col-sm-3 col-form-label">PENYELIA KENDERAAN/ POL 200</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-select-single form-control" name="penyeliaKenderaan" id="penyeliaKenderaan" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="penyeliaKenderaan" id="penyeliaKenderaan" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -126,7 +126,7 @@
                                                 <div class="row mb-3">
                                                     <label for="pejabatBpjkk" class="col-sm-3 col-form-label">PEJABAT BPJKK</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-select-mult form-control" data-placeholder="Sila Pilih" name="pejabatBpjkk[]" id="pejabatBpjkk" data-allow-clear="true" multiple="multiple">
+                                                        <select class="js-select-mult form-control" data-placeholder="Sila Pilih" name="pejabatBpjkk[]" id="pejabatBpjkk" data-allow-clear="true" multiple="multiple" style="width: 100%;">
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
@@ -137,7 +137,7 @@
                                                 <div class="row mb-3">
                                                     <label for="tugasDespatch" class="col-sm-3 col-form-label">TUGAS DESPATCH</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-select-single form-control" name="tugasDespatch" id="tugasDespatch" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="tugasDespatch" id="tugasDespatch" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -159,7 +159,7 @@
                                                 <div class="row mb-4">
                                                     <div class="form-group col-md-4">
                                                         <label for="anggotaCuti">Anggota</label>
-                                                        <select id="anggotaCuti" name="anggotaCuti1" class="js-select-single form-control">
+                                                        <select id="anggotaCuti" name="anggotaCuti1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -214,7 +214,7 @@
                                                 <div class="row mb-4">
                                                     <div class="form-group col-md-4">
                                                         <label for="anggotaCutiSakit">Anggota</label>
-                                                        <select id="anggotaCutiSakit" name="anggotaCutiSakit1" class="js-select-single form-control">
+                                                        <select id="anggotaCutiSakit" name="anggotaCutiSakit1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -269,8 +269,7 @@
                                                 <div class="row mb-4">
                                                     <div class="form-group col-md-6">
                                                         <label for="startDate">BILIK OPERASI/ PENTADBIRAN OPERASI</label>
-                                                        <select name="operasi_pentadbiran[]" class="js-select-mult form-control"  data-placeholder="Sila Pilih" multiple="multiple">
-                                                            <option></option>
+                                                        <select name="operasi_pentadbiran[]" class="js-select-mult form-control"  data-placeholder="Sila Pilih" multiple="multiple" style="width: 100%;">
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
@@ -279,8 +278,7 @@
 
                                                     <div class="form-group col-md-6">
                                                         <label for="startDate">KELEPASAN PENYELIA MPV</label>
-                                                        <select name="penyelia_mpv[]" class="js-select-mult form-control"  data-placeholder="Sila Pilih" multiple="multiple">
-                                                            <option></option>
+                                                        <select name="penyelia_mpv[]" class="js-select-mult form-control"  data-placeholder="Sila Pilih" multiple="multiple" style="width: 100%;">
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
@@ -333,7 +331,7 @@
                                                         <h6 class="d-flex justify-content-center">Co-Pilot</h6>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <select class="js-select-single form-control" name="syif_0816_co" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="syif_0816_co" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -341,7 +339,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <select class="js-select-single form-control" name="syif_1600_co" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="syif_1600_co" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -349,7 +347,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <select class="js-select-single form-control" name="syif_0008_co" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="syif_0008_co" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -363,7 +361,7 @@
                                                         <h6 class="d-flex justify-content-center">Pilot</h6>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <select class="js-select-single form-control" name="syif_0816_pilot" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="syif_0816_pilot" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -371,7 +369,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <select class="js-select-single form-control" name="syif_1600_pilot" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="syif_1600_pilot" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -379,7 +377,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <select class="js-select-single form-control" name="syif_0008_pilot" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="syif_0008_pilot" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -393,7 +391,7 @@
                                                         <h6 class="d-flex justify-content-center">Kereta</h6>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <select class="js-select-single form-control" name="syif_0816_kereta" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="syif_0816_kereta" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Car::get() as $car)
                                                                 <option value="{{ $car->id }}"> ({{ $car->code }}) {{ $car->no_plate }}</option>
@@ -401,7 +399,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <select class="js-select-single form-control" name="syif_1600_kereta" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="syif_1600_kereta" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Car::get() as $car)
                                                                 <option value="{{ $car->id }}"> ({{ $car->code }}) {{ $car->no_plate }}</option>
@@ -409,7 +407,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <select class="js-select-single form-control" name="syif_0008_kereta" data-allow-clear="true">
+                                                        <select class="js-select-single form-control" name="syif_0008_kereta" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Car::get() as $car)
                                                                 <option value="{{ $car->id }}"> ({{ $car->code }}) {{ $car->no_plate }}</option>
@@ -509,7 +507,7 @@
                                                 <div class="row mb-4">
                                                     <h5 class="mb-4">0800HRS - 1600HRS</h5>
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_AB0816_Co_id">Co-Pilot (C)</label>
+                                                        <label for="ronda_AB0816_Co_id">Pilot (P)</label>
                                                         <select id="ronda_AB0816_Co_id" name="ronda_AB0816_Co1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -519,7 +517,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_AB0816_Pi">Pilot (P)</label>
+                                                        <label for="ronda_AB0816_Pi">Co-Pilot (C)</label>
                                                         <select id="ronda_AB0816_Pi" name="ronda_AB0816_Pi1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value=""></option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -551,7 +549,7 @@
                                                 <div class="row mb-4">
                                                     <h5 class="mb-4">1600HRS – 0000HRS</h5>
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_AB1600_Co">Co-Pilot (C)</label>
+                                                        <label for="ronda_AB1600_Co">Pilot (P)</label>
                                                         <select id="ronda_AB1600_Co" name="ronda_AB1600_Co1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -561,7 +559,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_AB1600_Pi">Pilot (P)</label>
+                                                        <label for="ronda_AB1600_Pi">Co-Pilot (C)</label>
                                                         <select id="ronda_AB1600_Pi" name="ronda_AB1600_Pi1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value=""></option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -592,7 +590,7 @@
                                                 <div class="row mb-4">
                                                     <h5 class="mb-4">0001HRS – 0800HRS</h5>
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_AB0008_Co">Co-Pilot (C)</label>
+                                                        <label for="ronda_AB0008_Co">Pilot (P)</label>
                                                         <select id="ronda_AB0008_Co" name="ronda_AB0008_Co1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -602,7 +600,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_AB0008_Pi">Pilot (P)</label>
+                                                        <label for="ronda_AB0008_Pi">Co-Pilot (C)</label>
                                                         <select id="ronda_AB0008_Pi" name="ronda_AB0008_Pi1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value=""></option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -657,7 +655,7 @@
                                                 <div class="row mb-4">
                                                     <h5 class="mb-4">0800HRS - 1600HRS</h5>
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_CD0816_Co_id">Co-Pilot (C)</label>
+                                                        <label for="ronda_CD0816_Co_id">Pilot (P)</label>
                                                         <select id="ronda_CD0816_Co_id" name="ronda_CD0816_Co1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -667,7 +665,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_CD0816_Pi">Pilot (P)</label>
+                                                        <label for="ronda_CD0816_Pi">Co-Pilot (C)</label>
                                                         <select id="ronda_CD0816_Pi" name="ronda_CD0816_Pi1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value=""></option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -699,7 +697,7 @@
                                                 <div class="row mb-4">
                                                     <h5 class="mb-4">1600HRS – 0000HRS</h5>
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_CD1600_Co">Co-Pilot (C)</label>
+                                                        <label for="ronda_CD1600_Co">Pilot (P)</label>
                                                         <select id="ronda_CD1600_Co" name="ronda_CD1600_Co1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -709,7 +707,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_CD1600_Pi">Pilot (P)</label>
+                                                        <label for="ronda_CD1600_Pi">Co-Pilot (C)</label>
                                                         <select id="ronda_CD1600_Pi" name="ronda_CD1600_Pi1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value=""></option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -740,7 +738,7 @@
                                                 <div class="row mb-4">
                                                     <h5 class="mb-4">0001HRS – 0800HRS</h5>
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_CD0008_Co">Co-Pilot (C)</label>
+                                                        <label for="ronda_CD0008_Co">Pilot (P)</label>
                                                         <select id="ronda_CD0008_Co" name="ronda_CD0008_Co1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -750,7 +748,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_CD0008_Pi">Pilot (P)</label>
+                                                        <label for="ronda_CD0008_Pi">Co-Pilot (C)</label>
                                                         <select id="ronda_CD0008_Pi" name="ronda_CD0008_Pi1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value=""></option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -805,7 +803,7 @@
                                                 <div class="row mb-4">
                                                     <h5 class="mb-4">0800HRS - 1600HRS</h5>
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_EF0816_Co_id">Co-Pilot (C)</label>
+                                                        <label for="ronda_EF0816_Co_id">Pilot (P)</label>
                                                         <select id="ronda_EF0816_Co_id" name="ronda_EF0816_Co1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -815,7 +813,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_EF0816_Pi">Pilot (P)</label>
+                                                        <label for="ronda_EF0816_Pi">Co-Pilot (C)</label>
                                                         <select id="ronda_EF0816_Pi" name="ronda_EF0816_Pi1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value=""></option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -847,7 +845,7 @@
                                                 <div class="row mb-4">
                                                     <h5 class="mb-4">1600HRS – 0000HRS</h5>
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_EF1600_Co">Co-Pilot (C)</label>
+                                                        <label for="ronda_EF1600_Co">Pilot (P)</label>
                                                         <select id="ronda_EF1600_Co" name="ronda_EF1600_Co1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -857,7 +855,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_EF1600_Pi">Pilot (P)</label>
+                                                        <label for="ronda_EF1600_Pi">Co-Pilot (C)</label>
                                                         <select id="ronda_EF1600_Pi" name="ronda_EF1600_Pi1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value=""></option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -888,7 +886,7 @@
                                                 <div class="row mb-4">
                                                     <h5 class="mb-4">0001HRS – 0800HRS</h5>
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_EF0008_Co">Co-Pilot (C)</label>
+                                                        <label for="ronda_EF0008_Co">Pilot (P)</label>
                                                         <select id="ronda_EF0008_Co" name="ronda_EF0008_Co1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -898,7 +896,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="ronda_EF0008_Pi">Pilot (P)</label>
+                                                        <label for="ronda_EF0008_Pi">Co-Pilot (C)</label>
                                                         <select id="ronda_EF0008_Pi" name="ronda_EF0008_Pi1" class="js-select-single form-control" style="width: 100%;">
                                                             <option value=""></option>
                                                             @foreach (App\Models\Officer::get() as $officer)
@@ -946,13 +944,10 @@
                             </div>
                         </div>
 
-                        {{-- <button type="submit" form="CreateRosterForm">hantar</button> --}}
                         <div class="d-flex justify-content-between">
-                            <a href="#" class="btn btn-secondary my-3 mr-2" role="button"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Kembali</a>
+                            <a href="{{ route('rosters.home') }}" class="btn btn-secondary my-3 mr-2" role="button"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Kembali</a>
                             <div class="justify-content-end">
                                 <button type="submit" form="CreateRosterForm" class="btn btn-primary my-3 mr-2"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
-                                {{-- <a class="btn btn-info my-3 mr-2"><i class="fas fa-save"></i>&nbsp;&nbsp;Jana</a>
-                                <button type="submit" form="CreateRosterForm" class="btn btn-success my-3"><i class="fas fa-paper-plane"></i>&nbsp;&nbsp;Hantar</button> --}}
                             </div>
                         </div>
                     </form>

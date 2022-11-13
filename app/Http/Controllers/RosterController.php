@@ -239,9 +239,14 @@ class RosterController extends Controller
 
         $roster->save();
 
+        $notification = array(
+            'message' => 'Jadual Telah Berjaya Ditambah !', 
+            'alert-type' => 'success'
+        ); 
+
         return redirect()
             ->route('rosters.home')
-            ->with('message', 'New item has been successfully added.');
+            ->with($notification);
 
         // AB CD EF
         // 0816 1600 0008
