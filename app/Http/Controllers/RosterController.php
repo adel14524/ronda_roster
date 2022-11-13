@@ -119,7 +119,7 @@ class RosterController extends Controller
 
         $shift = $request->toArray();
 
-        $categorys   = ['AB', 'CD', 'EF'];
+        // $categorys   = ['AB', 'CD', 'EF'];
         $times       = ['0816', '1600', '0008'];
         $types       = ['Co', 'Pi', 'Car'];
 
@@ -240,9 +240,9 @@ class RosterController extends Controller
         $roster->save();
 
         $notification = array(
-            'message' => 'Jadual Telah Berjaya Ditambah !', 
+            'message' => 'Jadual Telah Berjaya Ditambah !',
             'alert-type' => 'success'
-        ); 
+        );
 
         return redirect()
             ->route('rosters.home')
@@ -259,15 +259,7 @@ class RosterController extends Controller
 
     public function edit($id)
     {
-        try {
-            $id = Crypt::decrypt($id);
-        } catch (\Throwable $th) {
-            return null;
-        };
-
-        $roster = Roster::find($id);
-        // dd($roster->toArray());
-        return view('roster.edit_roster', compact('roster'));
+        return view('roster.edit');
     }
 
     public function update(Request $request, $id)
@@ -277,21 +269,9 @@ class RosterController extends Controller
 
     public function destroy($id)
     {
-
-        try {
-            $id = Crypt::decrypt($id);
-        } catch (\Throwable $th) {
-            return null;
-        };
-
         Roster::find($id)->forceDelete();
 
-        $notification = array(
-            'message' => 'Jadual Telah Berjaya Dipadam !', 
-            'alert-type' => 'success'
-        ); 
-
-        return redirect()->back()->with($notification);
+        return redirect()->back()->with('message', 'The report successfully has been deleted.');
     }
 
     public function preview(Request $request){
@@ -312,8 +292,36 @@ class RosterController extends Controller
     public function iframe($id){
 
         $roster = Roster::find($id);
-        // dd($roster);
-        return view("roster.iframe_roster", compact('roster'));
+        // dd($roster->toArray());
+        // dd(json_decode($roster->leave, true) );
+        $leave      = json_decode($roster->leave, true);
+        $sick       = json_decode($roster->leave_sick, true);
+        $control    = json_decode($roster->control_room, true);
+        $sv_mpv     = json_decode($roster->sv_mpv, true);
+        $dep_sv     = json_decode($roster->departure_sv_mpv, true);
+        $position   = json_decode($roster->position, true);
+        $tasks      = json_decode($roster->other_task, true);
+        $departure  = json_decode($roster->departure, true);
+        $zone_AB    = json_decode($roster->zone_AB, true);
+        $zone_CD    = json_decode($roster->zone_CD, true);
+        $zone_EF    = json_decode($roster->zone_EF, true);
+        // dd($zone_EF);
+        return view("roster.iframe_roster",
+        compact(
+            'roster',
+            'leave',
+            'sick',
+            'control',
+            'sv_mpv',
+            'dep_sv',
+            'position',
+            'tasks',
+            'departure',
+            'zone_AB',
+            'zone_CD',
+            'zone_EF',
+            )
+        );
 
     }
 }

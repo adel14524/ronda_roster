@@ -14,4 +14,12 @@ class Car extends Model
         'no_plate',
         'updated_by'
     ];
+
+
+    public function getCar($id = null){
+
+        $car = Car::find($id);
+
+        return !empty($id) ? $car : '';
+    }
 }

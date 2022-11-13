@@ -16,7 +16,7 @@ class Officer extends Model
         'updated_by'
     ];
 
-    function getRoleBatch($id = null){
+    public function getRoleBatch($id = null){
 
         $role = [
             1  =>  'ASP',
@@ -31,6 +31,42 @@ class Officer extends Model
             10  =>  'KA',
         ];
 
-        return !empty($id) ? $role[$id] : $role ;
+        return !empty($id) ? $role[$id] : '' ;
     }
+
+    public function getJawatan($id = null){
+
+        $role = [
+            'ketuaUnitMpv'      =>  'KETUA UNIT MPV',
+            'sarjanMejarMpv'    =>  'SARJAN MEJAR MPV',
+            'PentadbiranBpjkk'  =>  'SARJAN PENTADBIRAN BPJKK',
+            'pengaturTugas'     =>  'PENGATUR TUGAS',
+            'penyeliaKenderaan' =>  'PENYELIA KENDERAAN/POL 200',
+            'pejabatBpjkk'      =>  'PEJABAT BPJKK',
+            'tugasDespatch'     =>  'TUGAS DESPATCH',
+        ];
+
+        return !empty($id) ? $role[$id] : '' ;
+    }
+
+    public function countRole($id = null){
+        $count = Officer::where('role_batch',$id)->count();
+        return !empty($id) ? $count : '' ;
+    }
+
+    public function getOfficer($id = null){
+        $officer = Officer::find($id);
+        return !empty($id) ? $officer : '' ;
+    }
+
+    public function getOfficerBatchNum($id = null){
+        $officer = Officer::find($id);
+        return !empty($id) ? $officer->batch_num : '' ;
+    }
+
+    public function getOfficername($id = null){
+        $officer = Officer::find($id);
+        return !empty($id) ? $officer->name : '' ;
+    }
+
 }

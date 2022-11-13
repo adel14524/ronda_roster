@@ -164,27 +164,51 @@
                                     </tr>
                                     <tr  class="anggota_pgkt_jwtn ">
                                         <td class="textCtr no_left_border">PANGKAT</td>
-                                        @for ($i = 0; $i < 12; $i++)
-                                            <td class="textCtr" data-value="{{ $i }}">000</td>
+                                        @for ($i = 0; $i < 11; $i++)
+                                            <td class="textCtr" data-value="{{ $i }}">{{ \App\Models\Officer::getRoleBatch($i) }}</td>
                                         @endfor
+                                        <td class="textCtr no_left_border">JUM</td>
                                     </tr>
                                     <tr   class="anggota_pgkt_jwtn ">
                                         <td class="textCtr no_left_border">JAWATAN</td>
-                                        @for ($i = 0; $i < 12; $i++)
-                                            <td class="textCtr ">000</td>
+                                        @for ($i = 0; $i < 11; $i++)
+                                            <td class="textCtr ">{{ \App\Models\Officer::countRole($i) }}</td>
                                         @endfor
+                                        <td class="textCtr no_left_border">{{ \App\Models\Officer::count() }}</td>
                                     </tr>
                                 </tbody>
                             </table>
 
                             <table style="border: none;" class="border-bottom">
                                 <tbody style="font-size: 7pt;">
-                                    @for ($i = 1; $i < 8; $i++)
+                                    @php $i = 1; @endphp
+                                    @foreach ($position as $key => $pos)
                                         <tr  style="line-height: 5mm" >
-                                            <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" > Pangkat No Badan</td>
-                                            <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" >{{ $i }}. Jawatan</td>
+                                            <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" >{{ $i }}. {{ \App\Models\Officer::getJawatan($key) }}</td>
+                                            @if ($key == 'pejabatBpjkk')
+                                                <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" >
+                                                    @if (!empty($pos))
+                                                        @foreach ($pos as $id)
+                                                            {{ \App\Models\Officer::getOfficerBatchNum($id)  }},&nbsp;
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                            @else
+                                                @switch($i)
+                                                    @case(1)
+                                                        <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" > {{ \App\Models\Officer::getOfficerBatchNum($pos)  }} {{ \App\Models\Officer::getOfficername($pos)  }}</td>
+                                                        @break
+                                                    @default
+                                                    <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" > {{ \App\Models\Officer::getOfficerBatchNum($pos)  }}</td>
+
+                                                @endswitch
+                                            @endif
                                         </tr>
-                                    @endfor
+                                        @php
+                                            $i++
+                                        @endphp
+
+                                    @endforeach
                                 </tbody>
                             </table>
                         </td>
@@ -196,12 +220,23 @@
                                             <br>
                                             CUTI:
                                             <br><br>
-                                            @for ($i = 0; $i < 5; $i++)
-                                                SJN 124453
+
+                                            @foreach ($leave as $cuti)
+                                                {{ \App\Models\Officer::getOfficerBatchNum($cuti['anggota'])  }}
                                                 <br>
-                                                12-21/05/2022
-                                                <br>
-                                            @endfor
+                                                {{-- {{ dd($cuti['start']) }} --}}
+                                                @php
+                                                $dt = explode("-",$cuti['start']);
+                                                $dta = explode("-",$cuti['end']);
+
+                                                $year = str_split($dta[0]);
+                                                @endphp
+                                                @if (!empty($cuti['start'] && !empty($cuti['end'])))
+
+                                                {{ $dt[2] }} - {{ $dta[2]}}/{{ $dta[1] }}/{{ $year[2].$year[3] }}
+                                                @endif
+                                            @endforeach
+
                                             <br>
                                         </td>
                                     </tr>
@@ -211,12 +246,21 @@
                                             CUTI SAKIT:
                                             <br>
                                             <br>
-                                            @for ($i = 0; $i < 5; $i++)
-                                            KPL 175886
-                                            <br>
-                                            18-19/05/22
-                                            <br>
-                                            @endfor
+                                            @foreach ($sick as $cuti)
+                                                {{ \App\Models\Officer::getOfficerBatchNum($cuti['anggota'])  }}
+                                                <br>
+                                                {{-- {{ dd($cuti['start']) }} --}}
+                                                @php
+                                                $dt = explode("-",$cuti['start']);
+                                                $dta = explode("-",$cuti['end']);
+
+                                                $year = str_split($dta[0]);
+                                                @endphp
+                                                @if (!empty($cuti['start'] && !empty($cuti['end'])))
+
+                                                {{ $dt[2] }} - {{ $dta[2]}}/{{ $dta[1] }}/{{ $year[2].$year[3] }}
+                                                @endif
+                                            @endforeach
                                             <br>
 
                                         </td>
@@ -235,7 +279,11 @@
                                     </tr>
                                     <tr class="anggota_pgkt_jwtn textCtr">
                                         <td class="no_xy_border">
-                                            SJN 138264
+                                            @if (!empty($control))
+                                                @foreach ($control as $ctrl)
+                                                    {{ \App\Models\Officer::getOfficerBatchNum($ctrl) }}
+                                                @endforeach
+                                            @endif
                                         </td>
                                     </tr>
 
@@ -250,37 +298,29 @@
                                         </td>
                                     </tr>
                                     <tr class="anggota_pgkt_jwtn textCtr">
-                                        <td class="no_left_border">
-                                            SJN 152539 (C)
-                                        </td>
-                                        <td>
-                                            SJN 126396 (C)
-                                        </td>
-                                        <td class="no_right_border">
-                                            SJN 152289 (C)
-                                        </td>
+                                        @foreach ($sv_mpv['co'] as $key => $co)
+                                            <td class="{{ $key == 0 ? 'no_left_border' : $key == 2 ? 'no_right_border' : '' }}">
+                                                {{-- {{ $co }} --}}
+                                                {{ \App\Models\Officer::getOfficerBatchNum($co)  }} (C)
+                                            </td>
+                                        @endforeach
                                     </tr>
                                     <tr class="anggota_pgkt_jwtn textCtr">
-                                        <td class="no_left_border">
-                                            KPL/S16742 (P)
-                                        </td>
-                                        <td>
-                                            6KPL/S 17044 (P)
-                                        </td>
-                                        <td class="no_right_border">
-                                            KPL/S 17050 (P)
-                                        </td>
+                                        @foreach ($sv_mpv['pilot'] as $key => $pilot)
+                                            <td class="{{ $key == 0 ? 'no_left_border' : $key == 2 ? 'no_right_border' : '' }}">
+                                                {{-- {{ $co }} --}}
+                                                {{ \App\Models\Officer::getOfficerBatchNum($pilot)  }} (P)
+                                            </td>
+                                        @endforeach
                                     </tr>
                                     <tr class="anggota_pgkt_jwtn textCtr">
-                                        <td class="no_left_border">
-                                            (KD 21) VFG 1843
-                                        </td>
-                                        <td>
-                                            (KD 37A) VFE 4823
-                                        </td>
-                                        <td class="no_right_border">
-                                            (KD 21) VFG 1843
-                                        </td>
+                                        @foreach ($sv_mpv['kereta'] as $key => $kereta)
+                                            <td class="{{ $key == 0 ? 'no_left_border' : $key == 2 ? 'no_right_border' : '' }}">
+                                                {{-- {{ $co }} --}}
+                                                {{-- {{ $kereta }} --}}
+                                                ({{ !empty(\App\Models\Car::getCar($kereta)) ? \App\Models\Car::getCar($kereta)->code : '-'  }}) {{ !empty(\App\Models\Car::getCar($kereta)) ? \App\Models\Car::getCar($kereta)->no_plate : '-'  }}
+                                            </td>
+                                        @endforeach
                                     </tr>
 
                                 </tbody>
@@ -292,8 +332,11 @@
                                         <td class="no_border">
                                             <u>KELEPASAN PENYELIA MPV</u>
                                             <br>
-                                            SJN 152279
-                                            KPL 162649
+                                            @if (!empty($dep_sv))
+                                                @foreach ($dep_sv as $dep)
+                                                    {{ \App\Models\Officer::getOfficerBatchNum($dep)  }} &nbsp;
+                                                @endforeach
+                                            @endif
                                         </td>
                                     </tr>
 
@@ -315,17 +358,33 @@
                                         <td class="pad-left" style="width: {{ $colpertama - $pad_left}}mm">LAWATAN LOKASI SASARAN PENTING</td>
                                         <td class="pad-left" style="width: {{ $mainTable3Width - $pad_left}}mm">TINDAKAN PENYELIA SYIF</td>
                                     </tr>
-                                    @for ($i = 1; $i < 7; $i++)
+                                    @php $i = 1; @endphp
+                                    @foreach ($tasks as $task)
                                         <tr class="lain_penugasan">
-                                            <td class="pad-left" style="width: {{ $colpertama }}mm ; "> {{ $i }}.L/V KEDAH 1 (22/04/2022-21/05/2022)</td>
-                                            <td class="pad-left" style="width: {{ $mainTable3Width }}mm">KPL 154124 (C),KPL 156290 (P) (KD 38A)VFE 4128</td>
+                                            <td class="pad-left" style="width: {{ $colpertama }}mm ; "> {{ $i }}. {{ $task['penugasan'] }}</td>
+                                            <td class="pad-left" style="width: {{ $mainTable3Width }}mm">
+                                                @if ($task['pegawai'] != '-')
+                                                    @foreach ($task['pegawai'] as $peg)
+                                                        {{ \App\Models\Officer::getOfficerBatchNum($peg)  }}, &nbsp;
+                                                    @endforeach
+                                                @endif
+                                            </td>
                                         </tr>
-                                    @endfor
+                                        @php $i++ @endphp
+                                    @endforeach
+
                                     <tr class="anggota_pgkt_jwtn">
                                         <td colspan="2" style="vertical-align:center ;width:{{ $mainTable1Width + $mainTable2Width + $mainTable3Width }}mm; text-align: center; border: none;">KELEPASAN / STANDBY</td>
                                     </tr>
                                     <tr class="lain_penugasan">
-                                        <td colspan="2" style="vertical-align:center ;width:{{ $mainTable1Width + $mainTable2Width + $mainTable3Width }}mm; text-align: center; ">P/SJN 102910,KPL170761,175886,L/KPL193561,200822,KPL/S15752,15772,14780,17197,22352</td>
+                                        <td colspan="2" style="vertical-align:center ;width:{{ $mainTable1Width + $mainTable2Width + $mainTable3Width }}mm; text-align: center; ">
+                                            @if (!empty($departure))
+
+                                                @foreach ($departure as $dep)
+                                                        {{ \App\Models\Officer::getOfficerBatchNum($dep)  }}, &nbsp;
+                                                @endforeach
+                                            @endif
+                                        </td>
                                     </tr>
 
                                 </tbody>
@@ -356,87 +415,145 @@
                         <td colspan="3" style="border: none">
                             <table style="border: none;">
                                 <tbody >
+                                    @php
+                                    $categorys   = [1 => 'AB', 2 => 'CD', 3 => 'EF'];
+                                    $times       = ['0816', '1600', '0008'];
+                                    $types       = ['Co', 'Pi', 'Car'];
+                                    @endphp
 
-                                    @for ($i = 1; $i < 4; $i++)
-
+                                    @foreach ($categorys as  $key => $cat)
+                                        {{-- row copilot --}}
                                         <tr style="border: none; text-align: center" class="lain_penugasan">
-                                            @if ($i == 1)
+                                            @if ($key == 1)
                                                 <td rowspan="3" style="width: {{ $masaZone - 0.25 }}mm;">MPV ZON <br> “A & B”</td>
-                                            @elseif ($i == 2)
+                                                @foreach ($times as $time)
+                                                    <td style="border: none;">
+                                                        <table style="border: none;">
+                                                            <tbody style="border: none;">
+                                                                <tr style="border: none; text-align: center" >
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['co']['ronda_'.$cat.$time.'_Co1']) ? \App\Models\Officer::getOfficerBatchNum($zone_AB['co']['ronda_'.$cat.$time.'_Co1']) : '-' }}</td>
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['co']['ronda_'.$cat.$time.'_Co2']) ? \App\Models\Officer::getOfficerBatchNum($zone_AB['co']['ronda_'.$cat.$time.'_Co2']) : '-' }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                @endforeach
+                                            @elseif ($key == 2)
                                                 <td rowspan="3" style="width: {{ $masaZone - 0.25 }}mm;">MPV ZON <br> “C & D”</td>
-                                            @elseif ($i == 3)
+                                                @foreach ($times as $time)
+                                                    <td style="border: none;">
+                                                        <table style="border: none;">
+                                                            <tbody style="border: none;">
+                                                                <tr style="border: none; text-align: center" >
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['co']['ronda_'.$cat.$time.'_Co1']) ? \App\Models\Officer::getOfficerBatchNum($zone_CD['co']['ronda_'.$cat.$time.'_Co1']) : '-' }}</td>
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['co']['ronda_'.$cat.$time.'_Co2']) ? \App\Models\Officer::getOfficerBatchNum($zone_CD['co']['ronda_'.$cat.$time.'_Co2']) : '-' }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                @endforeach
+                                            @elseif ($key == 3)
                                                 <td rowspan="3" style="width: {{ $masaZone - 0.25 }}mm;">MPV ZON <br> “E & F”</td>
+                                                @foreach ($times as $time)
+                                                    <td style="border: none;">
+                                                        <table style="border: none;">
+                                                            <tbody style="border: none;">
+                                                                <tr style="border: none; text-align: center" >
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['co']['ronda_'.$cat.$time.'_Co1']) ? \App\Models\Officer::getOfficerBatchNum($zone_EF['co']['ronda_'.$cat.$time.'_Co1']) : '-' }}</td>
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['co']['ronda_'.$cat.$time.'_Co2']) ? \App\Models\Officer::getOfficerBatchNum($zone_EF['co']['ronda_'.$cat.$time.'_Co2']) : '-' }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                @endforeach
+                                            @endif
+                                        </tr>
+                                        {{-- row pilot --}}
+                                        <tr style="border: none; text-align: center" class="lain_penugasan">
+                                            @if ($key == 1)
+                                                @foreach ($times as $time)
+                                                    <td class="no_border" style="width: {{ $jam }}mm;">
+                                                        <table style="border: none">
+                                                            <tr style="border: none; text-align: center" >
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi1']) ? \App\Models\Officer::getOfficerBatchNum($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi1']) : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi2']) ? \App\Models\Officer::getOfficerBatchNum($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi2']) : '-' }}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                @endforeach
+
+                                            @elseif ($key == 2)
+                                                @foreach ($times as $time)
+                                                    <td class="no_border" style="width: {{ $jam }}mm;">
+                                                        <table style="border: none">
+                                                            <tr style="border: none; text-align: center" >
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi1']) ? \App\Models\Officer::getOfficerBatchNum($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi1']) : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi2']) ? \App\Models\Officer::getOfficerBatchNum($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi2']) : '-' }}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                @endforeach
+                                            @elseif ($key == 3)
+                                                @foreach ($times as $time)
+                                                    <td class="no_border" style="width: {{ $jam }}mm;">
+                                                        <table style="border: none">
+                                                            <tr style="border: none; text-align: center" >
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi1']) ? \App\Models\Officer::getOfficerBatchNum($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi1']) : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi2']) ? \App\Models\Officer::getOfficerBatchNum($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi2']) : '-' }}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                @endforeach
                                             @endif
 
-                                            <td style="border: none;">
-                                                <table style="border: none;">
-                                                    <tbody style="border: none;">
-                                                        <tr style="border: none; text-align: center" >
-                                                            <td  style="width: {{ ($jam/2)-0.5 }}mm;">CO-PILOT</td>
-                                                            <td  style="width: {{ ($jam/2)-0.5 }}mm;">CO-PILOT</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                            <td style="border: none; text-align: center">
-                                                <table style="border: none;">
-                                                    <tr style="border: none; text-align: center" >
-                                                        <td  style="width: {{ ($jam/2)-0.5 }}mm;">CO-PILOT</td>
-                                                        <td  style="width: {{ ($jam/2)-0.5 }}mm;">CO-PILOT</td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td style="border: none; text-align: center">
-                                                <table style="border: none;">
-                                                    <tr style="border: none; text-align: center" >
-                                                        <td  style="width: {{ ($jam/2)-0.5 }}mm;">CO-PILOT</td>
-                                                        <td  style="width: {{ ($jam/2)-0.5 }}mm;">CO-PILOT</td>
-                                                    </tr>
-                                                </table>
-                                            </td>
                                         </tr>
+                                        {{-- row kereta --}}
                                         <tr style="border: none; text-align: center" class="lain_penugasan">
-                                            <td class="no_border" style="width: {{ $jam }}mm;">
-                                                <table style="border: none">
-                                                    <tr style="border: none; text-align: center" >
-                                                        <td style="width: {{ ($jam/2)-0.5 }}mm;">PILOT</td>
-                                                        <td style="width: {{ ($jam/2)-0.5 }}mm;">PILOT</td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="no_border" style="width: {{ $jam }}mm;">
-                                                <table style="border: none">
-                                                    <tr style="border: none; text-align: center" >
-                                                        <td style="width: {{ ($jam/2)-0.5 }}mm;">PILOT</td>
-                                                        <td style="width: {{ ($jam/2)-0.5 }}mm;">PILOT</td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="no_border" style="width: {{ $jam }}mm;">
-                                                <table style="border: none">
-                                                    <tr style="border: none; text-align: center" >
-                                                        <td style="width: {{ ($jam/2)-0.5 }}mm;">PILOT</td>
-                                                        <td style="width: {{ ($jam/2)-0.5 }}mm;">PILOT</td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        <tr style="border: none; text-align: center" class="lain_penugasan">
-                                            <td style="width: {{ $jam }}mm;">KERETA</td>
-                                            <td style="width: {{ $jam }}mm;">KERETA</td>
-                                            <td style="width: {{ $jam }}mm;">KERETA</td>
+                                            @if ($key == 1)
+                                                @foreach ($times as $time)
+                                                    <td class="no_border" style="width: {{ $jam }}mm;">
+                                                        <table style="border: none">
+                                                            <tr style="border: none; text-align: center" >
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta1']) ? '('.\App\Models\Car::getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta1'])->code.') '.\App\Models\Car::getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta1'])->no_plate  : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta2']) ? '('.\App\Models\Car::getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta2'])->code.') '.\App\Models\Car::getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta2'])->no_plate  : '-' }}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                @endforeach
+                                            @elseif ($key == 2)
+                                                @foreach ($times as $time)
+                                                    <td class="no_border" style="width: {{ $jam }}mm;">
+                                                        <table style="border: none">
+                                                            <tr style="border: none; text-align: center" >
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta1']) ? '('.\App\Models\Car::getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta1'])->code.') '.\App\Models\Car::getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta1'])->no_plate  : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta2']) ? '('.\App\Models\Car::getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta2'])->code.') '.\App\Models\Car::getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta2'])->no_plate  : '-' }}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                @endforeach
+                                            @elseif ($key == 3)
+                                                 @foreach ($times as $time)
+                                                    <td class="no_border" style="width: {{ $jam }}mm;">
+                                                        <table style="border: none">
+                                                            <tr style="border: none; text-align: center" >
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta1']) ? '('.\App\Models\Car::getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta1'])->code.') '.\App\Models\Car::getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta1'])->no_plate  : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta2']) ? '('.\App\Models\Car::getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta2'])->code.') '.\App\Models\Car::getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta2'])->no_plate  : '-' }}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                @endforeach
+                                            @endif
+
                                         </tr>
 
-                                        @if ($i != 3)
+                                        @if ($key != 3)
                                             <tr class="lain_penugasan">
                                                 <td colspan="4">
                                                     &nbsp;
                                                 </td>
                                             </tr>
                                         @endif
-                                    @endfor
-
-
+                                    @endforeach
                                 </tbody>
                             </table>
                         </td>
@@ -473,11 +590,9 @@
                     </tr>
                     <tr style="line-height: 4mm">
                         <td class="no_border" style=" text-align: center; border: none;">
-                            ........................T.T.............................. <br>
-                            (MOHAMMAD KHALIL BIN KHALID) <br>
-                            ASP <br>
-                            KETUA UNIT MPV, BPJKK <br>
-                            IPD KOTA SETAR
+                            PENGATUR TUGAS <br>
+                            (ROHAIZI BIN OTHMAN)&nbsp;SJN125560 <br>
+                            SALINAN:
                         </td>
                         <td class="no_border">&nbsp;</td>
                         <td class="no_border" style=" text-align: center;">
@@ -488,41 +603,13 @@
                             IPD KOTA SETAR
                         </td>
                     </tr>
-                    {{-- <tr style="line-height: 10mm">
-                        <td class="no_border">&nbsp;</td>
-                    </tr> --}}
+
 
                 </tbody>
-                <tfoot>
-                </tfoot>
             </table>
         {{-- </main> --}}
 
-        {{-- <div class="footer">
-            <table class="no_border">
-                <tbody>
-                    <tr style="line-height: 4mm">
-                        <td class="no_border" style=" text-align: center; font-size: 8pt; border: none;">
-                            ........................T.T.............................. <br>
-                            (MOHAMMAD KHALIL BIN KHALID) <br>
-                            ASP <br>
-                            KETUA UNIT MPV, BPJKK <br>
-                            IPD KOTA SETAR
-                        </td>
-                        <td class="no_border" style=" text-align: center;">
-                            ........................T.T.............................. <br>
-                            (MOHAMMAD KHALIL BIN KHALID) <br>
-                            ASP <br>
-                            KETUA UNIT MPV, BPJKK <br>
-                            IPD KOTA SETAR
-                        </td>
-                    </tr>
-                    <tr style="line-height: 10mm">
-                        <td class="no_border">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> --}}
+
     </div>
 
     <div class="table_kedua">
