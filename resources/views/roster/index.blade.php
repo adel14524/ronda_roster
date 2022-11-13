@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <form action="{{ route('officers.store') }}" method="POST" id="DeleteOfficers" enctype="multipart/form-data">
+            <form action="{{ route('rosters.store') }}" method="POST" id="DeleteRosters" enctype="multipart/form-data">
                 @method('Delete')
                 @csrf
             </form>

@@ -259,7 +259,15 @@ class RosterController extends Controller
 
     public function edit($id)
     {
-        return view('roster.edit');
+        try {
+            $id = Crypt::decrypt($id);
+        } catch (\Throwable $th) {
+            return null;
+        };
+
+        $roster = Roster::find($id);
+        // dd($roster->toArray());
+        return view('roster.edit_roster', compact('roster'));
     }
 
     public function update(Request $request, $id)
@@ -269,9 +277,21 @@ class RosterController extends Controller
 
     public function destroy($id)
     {
+
+        try {
+            $id = Crypt::decrypt($id);
+        } catch (\Throwable $th) {
+            return null;
+        };
+
         Roster::find($id)->forceDelete();
 
-        return redirect()->back()->with('message', 'The report successfully has been deleted.');
+        $notification = array(
+            'message' => 'Jadual Telah Berjaya Dipadam !', 
+            'alert-type' => 'success'
+        ); 
+
+        return redirect()->back()->with($notification);
     }
 
     public function preview(Request $request){

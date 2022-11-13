@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-    $('.select2-single').select2();
-
     if ($('#RostersTables').length > 0) {
         var RostersTable = $('#RostersTables').DataTable({
             responsive: true,
@@ -31,34 +29,15 @@ $(document).ready(function () {
                     name: 'tarikh',
                 },
                 {
-                    data: 'status',
-                    name: 'status',
-                    render: function (data, type, row) {
-
-                                //status draf    // <span class="badge badge-pill badge-info">Info</span>
-                                let html = '<span class="badge badge-pill badge-success">Telah Disahkan</span>'
-                                return html;
-                            }
-                },
-                // {
-                //     data: 'role_batch',
-                //     name: 'role_batch',
-                //     render: function (data, type, row) {
-                //         let roles = [];
-
-                //         return roles[data];
-                //     }
-                // },
-                {
                     data: 'id',
                     name: 'id',
                     orderable: false,
                     className: "text-center",
                     render: function (data, type, row) {
                         if (data != null) {
-                            let del = '<button data-id="' + data + '" class="btn btn-sm d-sm-inline-block btn-danger OfficersDeletea"><i class="fas fa-trash"></i></button>';
+                            let del = '<button data-id="' + data + '" class="btn btn-sm d-sm-inline-block btn-danger RostersDelete"><i class="fas fa-trash"></i></button>';
                             let view = '<a data-id="' + data + '" class="btn btn-sm d-sm-inline-block btn-info RosterPreview" href="/rosters/' + data + '/preview" ><i class="fas fa-print"></i></a>';
-                            let edit = '<button data-id="' + data + '" class="btn btn-sm d-sm-inline-block btn-primary OfficersEdita"><i class="fas fa-edit"></i></button>';
+                            let edit = '<a data-id="' + data + '" class="btn btn-sm d-sm-inline-block btn-primary" href="/rosters/' + data + '/edit"><i class="fas fa-edit"></i></a>';
                             return type === 'display' ?
                                 view+'&nbsp;'+edit+'&nbsp;'+del : null;
                         } else {
@@ -91,12 +70,14 @@ $(document).ready(function () {
         // console.log("fjksbvhef");
     })
 
-    $(document).on('click', '.RostersEdit', function () {
-        window.location.href = '/officers/' + $(this).data('id') + '/edit';
-    });
+    // $(document).on('click', '.RostersEdit', function () {
+    //     window.location.href = '/officers/' + $(this).data('id') + '/edit';
+    // });
 
     $(document).on('click', '.RostersDelete', function () {
+        
         let id = $(this).data('id');
+        console.log(id);
         Swal.fire({
             title: 'Adakah anda pasti ?',
             text: "Proses ini tidak boleh diundur!",
@@ -108,8 +89,9 @@ $(document).ready(function () {
             cancelButtonText: "Batal"
         }).then((result) => {
             if (result.isConfirmed) {
-                $('#RostersDeleteID').val(id);
-                $('#RostersDeleteForm').submit();
+                console.log(id);
+                $('#DeleteRosters').attr('action', '/rosters/' + id);
+                $('#DeleteRosters').submit();
             }
         })
     });
@@ -158,13 +140,8 @@ $(document).ready(function () {
 
     setTimeout(fade,5000);
 
-    // $(".buttonRemove").click(function(){
-    //     $("#fadeOutdiv").fadeOut(0001);
-    // });
-
     function listOfficer(){
 
-        // console.log($('meta[name="csrf-token"]').attr('content'));
         $.ajax({
             type: 'POST',
             url : '/officers/ajax',
@@ -189,7 +166,7 @@ $(document).ready(function () {
 
                 }else{
                     Swal.fire(
-                        'awdawdawdwadda!',
+                        'Error!',
                         results.message,
                         'error'
                     )
@@ -220,6 +197,7 @@ $(document).ready(function () {
 
                     let count = $('#countCuti').val()
                     let cuti = $('#AddCuti').val()
+                    console.log('#countTugas',count,'#AddCuti',cuti);
 
                     let html = '<div class="row mt-4 removeclassCuti'+cuti+'" >'+
                                     '<div class="form-group col-md-4">' +
@@ -346,7 +324,7 @@ $(document).ready(function () {
 
 
     // penugasan
-    var tugas = 1;
+    // var tugas = 1;
     $(document).on('click', '#AddTugas', function(){
 
         $.ajax({
@@ -366,7 +344,9 @@ $(document).ready(function () {
                     });
 
                     let count = $('#countTugas').val();
-                    let tugas = $('#AddTugas').val()
+                    let tugas = $('#AddTugas').val();
+                    console.log('#countTugas',count,'#AddTugas',tugas);
+
                     let html = '<div class="row mt-4 removeclassTugas'+tugas+'" id="fadeOutdiv">'+
                                 '    <div class="form-group col-md-7 col-sm-6">'+
                                         '<label for="startDate">Lawatan Lokasi Sasaran Penting</label>'+

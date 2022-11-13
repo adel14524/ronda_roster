@@ -8,25 +8,25 @@
                     <h3 class="card-header text-center bg-info text-light">BORANG JADUAL TUGAS</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('rosters.store') }}" method="POST" id="CreateRosterForm" enctype="multipart/form-data">
+                    <form action="{{ route('rosters.update', [$roster->id]) }}" method="POST" id="CreateRosterForm" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-4">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="pindaan">Pindaan</label><span class="denger">*</span>
-                                    <input type="text" id="pindaan" name="pindaan" class="form-control" placeholder="Contoh: Pol 69) (Pindaan 1/71)" required>
+                                    <input type="text" id="pindaan" name="pindaan" class="form-control" value="{{ $roster->pindaan }}" placeholder="Contoh: Pol 69) (Pindaan 1/71)" required>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="pindaan">Tarikh Mula</label><span class="denger">*</span>
-                                    <input type="date" id="tarikhMula" name="tarikhMula" class="form-control" required>
+                                    <input type="date" id="tarikhMula" name="tarikhMula" value="{{ $roster->tarikh_mula }}" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="pindaan">Tarikh Tamat</label><span class="denger">*</span>
-                                    <input type="date" id="tarikhHabis" name="tarikhHabis" class="form-control" required>
+                                    <input type="date" id="tarikhHabis" name="tarikhHabis" value="{{ $roster->tarikh_habis }}" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -64,12 +64,16 @@
                                         <div class="card">
                                             <div class="card-body"><br>
                                                 <div class="row mb-3">
+                                                    @php
+                                                        $jawatan = json_decode($roster->position, true);
+                                                        // dd($jawatan);
+                                                    @endphp
                                                     <label for="ketuaUnitMpv" class="col-sm-3 col-form-label">KETUA UNIT MPV</label>
                                                     <div class="col-sm-9">
                                                         <select class="js-select-single form-control" name="ketuaUnitMpv" id="ketuaUnitMpv" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}" class="selected-officer"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $jawatan['ketuaUnitMpv'] == $officer->id ? 'selected' : ''  }} class="selected-officer"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -81,7 +85,7 @@
                                                         <select class="js-select-single form-control" name="sarjanMejarMpv" id="sarjanMejarMpv" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $jawatan['sarjanMejarMpv'] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -93,7 +97,7 @@
                                                         <select class="js-select-single form-control" name="PentadbiranBpjkk" id="sarjanPentadbiranBpjkk" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $jawatan['PentadbiranBpjkk'] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -105,7 +109,7 @@
                                                         <select class="js-select-single form-control" name="pengaturTugas" id="pengaturTugas" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $jawatan['pengaturTugas'] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -117,18 +121,22 @@
                                                         <select class="js-select-single form-control" name="penyeliaKenderaan" id="penyeliaKenderaan" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $jawatan['penyeliaKenderaan'] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div class="row mb-3">
+                                                    @php
+                                                        // $pejabat = json_decode($jawatan['pejabatBpjkk']);
+                                                        // dd($jawatan['pejabatBpjkk']);
+                                                    @endphp
                                                     <label for="pejabatBpjkk" class="col-sm-3 col-form-label">PEJABAT BPJKK</label>
                                                     <div class="col-sm-9">
                                                         <select class="js-select-mult form-control" data-placeholder="Sila Pilih" name="pejabatBpjkk[]" id="pejabatBpjkk" data-allow-clear="true" multiple="multiple" style="width: 100%;">
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ in_array($officer->id, $jawatan['pejabatBpjkk']) ? 'selected' : '' }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -140,7 +148,7 @@
                                                         <select class="js-select-single form-control" name="tugasDespatch" id="tugasDespatch" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $jawatan['tugasDespatch'] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -153,37 +161,50 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-lg-12">
+                                        @php
+                                            $cutis = json_decode($roster->leave, true);
+                                            // dd($cutis);
+                                        @endphp
+
                                         <div class="card">
                                             <h5 class="card-header">CUTI</h5>
                                             <div class="card-body"><br>
-                                                <div class="row mb-4">
-                                                    <div class="form-group col-md-4">
-                                                        <label for="anggotaCuti">Anggota</label>
-                                                        <select id="anggotaCuti" name="anggotaCuti1" class="js-select-single form-control" style="width: 100%;">
-                                                            <option value="" selected>Sila Pilih </option>
-                                                            @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                                @foreach ($cutis as $key => $cuti)
+                                                    <div class= {{ $key == 1 ? "row mb-4" : "row mb-4 removeclassCuti".$key }}>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="anggotaCuti{{ $key }}">Anggota</label>
+                                                            ------
+                                                            <select id="anggotaCuti{{ $key }}" name="anggotaCuti{{ $key }}" class="js-select-single form-control" style="width: 100%;">
+                                                                <option value="" selected>Sila Pilih </option>
+                                                                @foreach (App\Models\Officer::get() as $officer)
+                                                                    <option value="{{ $officer->id }}" {{ $cuti['anggota'] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
 
-                                                    <div class="form-group col-md-4">
-                                                        <label for="startDate">Tarikh Mula Cuti</label>
-                                                        <input type='date' class="form-control" id="startDateCuti" name="startDateCuti1" placeholder="Masukkan tarikh mula cuti" />
-                                                    </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="startDate">Tarikh Mula Cuti</label>
+                                                            <input type='date' class="form-control" id="startDateCuti" name="startDateCuti{{ $key }}" value="{{ $cuti['start'] }}" placeholder="Masukkan tarikh mula cuti" />
+                                                        </div>
 
-                                                    <div class="form-group col-md-4">
-                                                        <label for="endDate">Tarikh Tamat Cuti</label>
-                                                        <div class="input-group">
-                                                            <input type="date" class="form-control" id="endDateCuti" name="endDateCuti1" placeholder="Masukkan tarikh tamat cuti">
-                                                            <div class="input-group-btn">
-                                                                <button class="btn btn-success buttonAdd " id="AddCuti" value="2" type="button"><i class="fas fa-plus mt-2"></i></button>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="endDate">Tarikh Tamat Cuti</label>
+                                                            <div class="input-group">
+                                                                <input type="date" class="form-control" id="endDateCuti" name="endDateCuti{{ $key }}" value="{{ $cuti['end'] }}" placeholder="Masukkan tarikh tamat cuti">
+                                                                <div class="input-group-btn">
+                                                                    @if ($key == 1)
+                                                                        <button class="btn btn-success buttonAdd " id="AddCuti" value="{{ $key + 1 }}" type="button"><i class="fas fa-plus mt-2"></i></button>
+                                                                    @else
+                                                                        <button class="btn btn-danger buttonRemove BuangCuti" type="button" value="{{ $key }}" ><i class="fas fa-minus mt-2"></i></button>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    @endforeach
                                                     <input type="hidden" id="countCuti" name="countCuti" value="1">
                                                     <div class="tambahCuti"></div>
-                                                </div>
+                                                
                                             </div>
                                             <div class="card-footer">
                                                 <small>
@@ -267,20 +288,29 @@
                                         <div class="card">
                                             <div class="card-body"><br>
                                                 <div class="row mb-4">
+                                                    @php
+                                                        $bilik = json_decode($roster->control_room, true);
+                                                        // dd($bilik);
+                                                    @endphp
                                                     <div class="form-group col-md-6">
                                                         <label for="startDate">BILIK OPERASI/ PENTADBIRAN OPERASI</label>
                                                         <select name="operasi_pentadbiran[]" class="js-select-mult form-control"  data-placeholder="Sila Pilih" multiple="multiple" style="width: 100%;">
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ in_array($officer->id, $bilik) ? 'selected' : '' }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
+
+                                                    @php
+                                                        $kelepasan = json_decode($roster->departure_sv_mpv, true);
+                                                        // dd($kelepasan);
+                                                    @endphp
 
                                                     <div class="form-group col-md-6">
                                                         <label for="startDate">KELEPASAN PENYELIA MPV</label>
                                                         <select name="penyelia_mpv[]" class="js-select-mult form-control"  data-placeholder="Sila Pilih" multiple="multiple" style="width: 100%;">
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ in_array($officer->id, $kelepasan) ? 'selected' : '' }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -327,6 +357,10 @@
                                                 </div>
 
                                                 <div class="row mb-4">
+                                                    @php
+                                                        $penyeliaMPV = json_decode($roster->sv_mpv, true);
+                                                        // dd($penyeliaMPV);
+                                                    @endphp
                                                     <div class="col-sm-2">
                                                         <h6 class="d-flex justify-content-center">Co-Pilot</h6>
                                                     </div>
@@ -334,7 +368,7 @@
                                                         <select class="js-select-single form-control" name="syif_0816_co" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $penyeliaMPV['co'][0] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -342,7 +376,7 @@
                                                         <select class="js-select-single form-control" name="syif_1600_co" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $penyeliaMPV['co'][1] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -350,7 +384,7 @@
                                                         <select class="js-select-single form-control" name="syif_0008_co" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $penyeliaMPV['co'][2] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -364,7 +398,7 @@
                                                         <select class="js-select-single form-control" name="syif_0816_pilot" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $penyeliaMPV['pilot'][0] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -372,7 +406,7 @@
                                                         <select class="js-select-single form-control" name="syif_1600_pilot" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $penyeliaMPV['pilot'][1] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -380,7 +414,7 @@
                                                         <select class="js-select-single form-control" name="syif_0008_pilot" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
-                                                                <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
+                                                                <option value="{{ $officer->id }}" {{ $penyeliaMPV['pilot'][2] == $officer->id ? 'selected' : ''  }}> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -394,7 +428,7 @@
                                                         <select class="js-select-single form-control" name="syif_0816_kereta" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Car::get() as $car)
-                                                                <option value="{{ $car->id }}"> ({{ $car->code }}) {{ $car->no_plate }}</option>
+                                                                <option value="{{ $car->id }}" {{ $penyeliaMPV['kereta'][0] == $officer->id ? 'selected' : ''  }}> ({{ $car->code }}) {{ $car->no_plate }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -402,7 +436,7 @@
                                                         <select class="js-select-single form-control" name="syif_1600_kereta" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Car::get() as $car)
-                                                                <option value="{{ $car->id }}"> ({{ $car->code }}) {{ $car->no_plate }}</option>
+                                                                <option value="{{ $car->id }}" {{ $penyeliaMPV['kereta'][1] == $officer->id ? 'selected' : ''  }}> ({{ $car->code }}) {{ $car->no_plate }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -410,7 +444,7 @@
                                                         <select class="js-select-single form-control" name="syif_0008_kereta" data-allow-clear="true" style="width: 100%;">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Car::get() as $car)
-                                                                <option value="{{ $car->id }}"> ({{ $car->code }}) {{ $car->no_plate }}</option>
+                                                                <option value="{{ $car->id }}" {{ $penyeliaMPV['kereta'][2] == $officer->id ? 'selected' : ''  }}> ({{ $car->code }}) {{ $car->no_plate }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
