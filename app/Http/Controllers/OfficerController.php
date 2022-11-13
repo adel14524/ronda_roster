@@ -16,14 +16,16 @@ class OfficerController extends Controller
     public function getAjax(Request $request)
     {
         $results = Officer::all();
-
         foreach ($results as $key => $result) {
 
             $result->pangkat = Officer::getRoleBatch($result->role_batch);
         }
 
         if($request->optionOfficer){
+            // dd(json($results));
             return response()->json($results);
+            // return response()->json($data, 200, $headers);
+            // return json_encode($results);
         }
 
         return DataTables::of($results)
@@ -52,7 +54,7 @@ class OfficerController extends Controller
         ]);
 
         $notification = array(
-            'message' => 'Anggota telah berjaya ditambah !', 
+            'message' => 'Anggota telah berjaya ditambah !',
             'alert-type' => 'success'
         );
 
@@ -79,11 +81,11 @@ class OfficerController extends Controller
             'name'        => $request->officer_name,
             'role_batch'  => $request->batch_role,
             'batch_num'   => $request->no_batch,
-            'updated_by'  => auth()->user()->id, 
+            'updated_by'  => auth()->user()->id,
         ]);
 
         $notification = array(
-            'message' => 'Anggota telah berjaya disunting !', 
+            'message' => 'Anggota telah berjaya disunting !',
             'alert-type' => 'success'
         );
 
@@ -95,7 +97,7 @@ class OfficerController extends Controller
         Officer::find($id)->forceDelete();
 
         $notification = array(
-            'message' => 'Anggota telah berjaya dipadam', 
+            'message' => 'Anggota telah berjaya dipadam',
             'alert-type' => 'success'
         );
 

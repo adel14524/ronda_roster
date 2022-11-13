@@ -1,0 +1,129 @@
+/* GLOBAL STYLING */
+:root {
+    --color-background: whitesmoke;
+    --color-pageBox: #666;
+    --color-paper: white;
+    --color-marginBox: transparent;
+    --font-size: medium;
+
+    --pagedjs-margin-top: 10mm;
+    --pagedjs-margin-left: 10mm;
+    --pagedjs-margin-right: 10mm;
+    --pagedjs-margin-bottom: 10mm;
+
+}
+
+/* DEFINE PDF STYLING */
+@media screen {
+    body {
+        background-color: var(--color-background);
+        font-size: var(--font-size) !important;
+    }
+
+    .pagedjs_pages {
+        display: flex;
+        width: calc(var(--pagedjs-width) * 2);
+        flex: 0;
+        flex-wrap: wrap;
+        margin: 0 auto;
+    }
+
+    .pagedjs_page {
+        background-color: var(--color-paper);
+        /* background-color: black; */
+        /* box-shadow: 0 0 0 1px var(--color-pageBox); */
+        box-shadow: red;
+        margin: 0;
+        flex-shrink: 0;
+        flex-grow: 0;
+        margin-top: 5mm;
+    }
+
+    .pagedjs_first_page {
+        margin-left: var(--pagedjs-width);
+    }
+
+    .pagedjs_page:last-of-type {
+        margin-bottom: 10mm;
+    }
+
+    /* Show the margin-box */
+    .pagedjs_margin-top-left-corner-holder,
+    .pagedjs_margin-top,
+    .pagedjs_margin-top-left,
+    .pagedjs_margin-top-center,
+    .pagedjs_margin-top-right,
+    .pagedjs_margin-top-right-corner-holder,
+    .pagedjs_margin-bottom-left-corner-holder,
+    .pagedjs_margin-bottom,
+    .pagedjs_margin-bottom-left,
+    .pagedjs_margin-bottom-center,
+    .pagedjs_margin-bottom-right,
+    .pagedjs_margin-bottom-right-corner-holder,
+    .pagedjs_margin-right,
+    .pagedjs_margin-right-top,
+    .pagedjs_margin-right-middle,
+    .pagedjs_margin-right-bottom,
+    .pagedjs_margin-left,
+    .pagedjs_margin-left-top,
+    .pagedjs_margin-left-middle,
+    .pagedjs_margin-left-bottom {
+        box-shadow: 0 0 0 1px inset var(--color-marginBox);
+    }
+
+    /* Uncomment this part for recto/verso book */
+    .pagedjs_pages {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .pagedjs_first_page {
+        margin-left: 0;
+    }
+
+    .pagedjs_page {
+        margin: 0 auto;
+        margin-top: 10mm;
+    }
+
+    .page-break {
+        page-break-before: page;
+    }
+
+    .page-break-avoid {
+        page-break-inside: avoid;
+    }
+
+    .page-break-before {
+        page-break-before: always;
+    }
+
+    .page-break-after {
+        page-break-after: always;
+    }
+
+    .page-break-always {
+        page-break-after: always;
+    }
+
+    @page {
+        size: A4 portrait;
+
+        /* @top-center {
+            content: counter(page);
+            font-weight: bold;
+        }
+
+        @right-top {
+            content: element(rightTopRunning);
+        }
+
+        @right-middle {
+            content: element(rightMiddleRunning);
+        }
+
+        @right-bottom {
+            content: element(rightBottomRunning);
+        } */
+    }
+}

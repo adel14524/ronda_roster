@@ -9,7 +9,7 @@
                         <div class="card-header">
                             Senarai Jadual
                             <div style="float: right">
-                                <a class="btn btn-primary float-right" href="{{ route('rosters.create') }}"><i class="fas fa-plus-circle"></i>&ensp;Tambah Jadual</a>
+                                <a class="btn btn-primary btn-sm float-right" href="{{ route('rosters.create') }}"><i class="fas fa-plus-circle"></i>&ensp;Tambah Jadual</a>
                             </div>
                         </div>
 

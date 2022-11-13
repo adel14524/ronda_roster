@@ -37,6 +37,8 @@ class RosterController extends Controller
 
     public function create()
     {
+        $roster = new Roster;
+
         return view('roster.create_roster');
     }
 
@@ -48,6 +50,7 @@ class RosterController extends Controller
     public function store(Request $request)
     {
 
+        // dd($request->toArray());
         $roster = new Roster;
 
         $roster->pindaan        =   !empty($request->pindaan) ? $request->pindaan : '-';
@@ -107,7 +110,7 @@ class RosterController extends Controller
         for ($i=1; $i < $request->countTugas+1 ; $i++) {
             $tugas [$i] = [
                 'penugasan'   => $tugasArr['penugasan'.$i],
-                'pegawai'     => $tugasArr['pegawaiPenugasan'.$i],
+                'pegawai'     => !empty($tugasArr['pegawaiPenugasan'.$i]) ? $tugasArr['pegawaiPenugasan'.$i] : '-',
             ];
         }
         $roster->other_task          = json_encode($tugas);
@@ -266,15 +269,26 @@ class RosterController extends Controller
         return redirect()->back()->with('message', 'The report successfully has been deleted.');
     }
 
-    public function preview($id){
-        $id = 1;
+    public function preview(Request $request){
+        // dd($id);
+        try {
+            $id = Crypt::decrypt($request->id);
+        } catch (\Throwable $th) {
+            // return $th;
+        }
+        // dd( $id);
+        // $id = 1;
+
         return view("roster.preview", compact('id'));
         // return view('modules.instruments.preview', compact('id'));
 
     }
 
     public function iframe($id){
-        return view("roster.iframe_roster");
+
+        $roster = Roster::find($id);
+        // dd($roster);
+        return view("roster.iframe_roster", compact('roster'));
 
     }
 }

@@ -9,22 +9,23 @@
                 </div>
                 <div class="card-body">
                     <form action="{{ route('rosters.store') }}" method="POST" id="CreateRosterForm" enctype="multipart/form-data">
+                        @csrf
                         <div class="row mb-4">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="pindaan">Pindaan</label>
+                                    <label for="pindaan">Pindaan</label><span class="denger">*</span>
                                     <input type="text" id="pindaan" name="pindaan" class="form-control" placeholder="Contoh: Pol 69) (Pindaan 1/71)" required>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="pindaan">Tarikh Mula</label>
+                                    <label for="pindaan">Tarikh Mula</label><span class="denger">*</span>
                                     <input type="date" id="tarikhMula" name="tarikhMula" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="pindaan">Pindaan</label>
+                                    <label for="pindaan">Tarikh Tamat</label><span class="denger">*</span>
                                     <input type="date" id="tarikhHabis" name="tarikhHabis" class="form-control" required>
                                 </div>
                             </div>
@@ -213,7 +214,7 @@
                                                 <div class="row mb-4">
                                                     <div class="form-group col-md-4">
                                                         <label for="anggotaCutiSakit">Anggota</label>
-                                                        <select id="anggotaCutiSakit" name="anggotaCutiSakit" class="js-select-single form-control">
+                                                        <select id="anggotaCutiSakit" name="anggotaCutiSakit1" class="js-select-single form-control">
                                                             <option value="" selected>Sila Pilih </option>
                                                             @foreach (App\Models\Officer::get() as $officer)
                                                                 <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
@@ -433,13 +434,14 @@
                                                 <div class="row mb-4">
                                                     <div class="form-group col-md-7 col-sm-6">
                                                         <label for="startDate">Lawatan Lokasi Sasaran Penting</label>
-                                                        <input type='text' class="form-control penugasan" id="penugasan"name="penugasan1" placeholder="Masukkan Jenis Penugasan berserta tarikh jika ada" />
+                                                        <input type='text' class="form-control penugasan" id="penugasan" name="penugasan1" placeholder="Masukkan Jenis Penugasan berserta tarikh jika ada" />
                                                     </div>
 
                                                     <div class="form-group col-md-5 col-sm-6">
                                                         <label for="inputEmail4">Tindakan Penyelia Syif</label>
                                                         <div class="input-group">
                                                             <select class="js-select-mult form-control" data-placeholder="Sila Pilih" name="pegawaiPenugasan1[]" data-allow-clear="true" multiple="multiple" style="width: 90%;">
+                                                                {{-- <option value="" selected disabled></option> --}}
                                                                 @foreach (App\Models\Officer::get() as $officer)
                                                                     <option value="{{ $officer->id }}"> {{ $officer->batch_num }} | {{ $officer->name }}</option>
                                                                 @endforeach
@@ -943,11 +945,21 @@
                                 </div>
                             </div>
                         </div>
+
+                        {{-- <button type="submit" form="CreateRosterForm">hantar</button> --}}
+                        <div class="d-flex justify-content-between">
+                            <a href="#" class="btn btn-secondary my-3 mr-2" role="button"><i class="fas fa-angle-left"></i>&nbsp;&nbsp;Kembali</a>
+                            <div class="justify-content-end">
+                                <button type="submit" form="CreateRosterForm" class="btn btn-primary my-3 mr-2"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
+                                {{-- <a class="btn btn-info my-3 mr-2"><i class="fas fa-save"></i>&nbsp;&nbsp;Jana</a>
+                                <button type="submit" form="CreateRosterForm" class="btn btn-success my-3"><i class="fas fa-paper-plane"></i>&nbsp;&nbsp;Hantar</button> --}}
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
 
-            
+
         </div>
     </div>
 @endsection

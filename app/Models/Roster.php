@@ -29,4 +29,24 @@ class Roster extends Model
         'remarks',
         'status',
     ];
+
+    public function getHari($hari = nuLl){
+
+        $days = [
+            'Sun' => 'AHAD',
+            'Mon' => 'ISNIN',
+            'Tue' => 'SELASA',
+            'Wed' => 'RABU',
+            'Thu' => 'KHAMIS',
+            'Fri' => 'JUMAAT',
+            'Sat' => 'SABTU'
+        ];
+
+        if ($hari != null) {
+            return $days[$hari];
+        }else{
+            return $days;
+        }
+
+    }
 }
