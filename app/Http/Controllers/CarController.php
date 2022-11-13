@@ -12,9 +12,13 @@ class CarController extends Controller
         return view('car.index');
     }
 
-    public function getAjax()
+    public function getAjax(Request $request)
     {
         $results = Car::all();
+
+        if($request->optionCar){
+            return response()->json($results);
+        }
 
         return DataTables::of($results)
                             ->addIndexColumn()
@@ -40,7 +44,7 @@ class CarController extends Controller
         ]);
 
         $notification = array(
-            'message' => 'Kereta telah berjaya ditambah !', 
+            'message' => 'Kereta telah berjaya ditambah !',
             'alert-type' => 'success'
         );
 
@@ -68,7 +72,7 @@ class CarController extends Controller
         ]);
 
         $notification = array(
-            'message' => 'Kereta telah berjaya disunting !', 
+            'message' => 'Kereta telah berjaya disunting !',
             'alert-type' => 'success'
         );
 
@@ -80,10 +84,12 @@ class CarController extends Controller
         Car::find($id)->forceDelete();
 
         $notification = array(
-            'message' => 'Kereta telah berjaya dipadam !', 
+            'message' => 'Kereta telah berjaya dipadam !',
             'alert-type' => 'success'
         );
 
         return redirect()->back()->with($notification);
     }
+
+
 }
