@@ -257,9 +257,18 @@ class RosterController extends Controller
         // return view('roster.create');
     }
 
-    public function edit($id)
+    public function edit(Request $request)
     {
-        return view('roster.edit');
+        
+        try {
+            $id = Crypt::decrypt($request->id);
+        } catch (\Throwable $th) {
+            return $th;
+        }
+
+        $roster = Roster::find($id);
+
+        return view('roster.edit_roster', compact('roster'));
     }
 
     public function update(Request $request, $id)

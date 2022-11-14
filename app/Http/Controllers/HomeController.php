@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\Officer;
-// use App\Models\Roster;
+use App\Models\Roster;
 
 
 class HomeController extends Controller
@@ -24,8 +24,11 @@ class HomeController extends Controller
         $countOfficer = Officer::count();
         $Officer = Officer::latest()->first();
         $latestOfficer = !empty($Officer->created_at) ? $Officer->created_at : "today";
+        $countRoster = Roster::count();
+        $Roster = Roster::latest()->first();
+        $latestRoster = !empty($Roster->created_at) ? $Roster->created_at : "today";
 
-        return view('admin.index', compact('countCar', 'countOfficer', 'latestCar', 'latestOfficer'));
+        return view('admin.index', compact('countCar', 'countOfficer', 'countRoster', 'latestCar', 'latestOfficer', 'latestRoster'));
     }
 
     /**
