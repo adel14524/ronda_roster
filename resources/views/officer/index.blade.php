@@ -14,22 +14,6 @@
                         </div>
 
                         <div class="card-body">
-                            {{-- @if (Session::has('message'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>{{ Session::get('message') }}</strong>
-                                    <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span
-                                            aria-hidden="true">×</span></button>
-                                </div>
-                            @endif
-                            @if ($errors->any())
-                                @foreach ($errors->all() as $error)
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>{{ $error }}</strong>
-                                        <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span
-                                                aria-hidden="true">×</span></button>
-                                    </div>
-                                @endforeach
-                            @endif --}}
                             <div class="table-responsive">
                                 <table class="table align-items-center table-flush datatable" id="OfficersTable">
                                     <thead>

@@ -41,8 +41,8 @@ $(document).ready(function() {
                     className: "text-center",
                     render: function (data, type, row) {
                         if (data != null) {
-                            let edit = '<button data-id="' + data + '" class="btn d-sm-inline-block btn-primary OfficersEdit" data-toggle="modal"><i class="fas fa-edit"></i></button>';
-                            let del = '<button data-id="' + data + '" class="btn d-sm-inline-block btn-danger OfficersDelete"><i class="fas fa-trash"></i></button>';
+                            let edit = '<button data-id="' + data + '" class="btn d-sm-inline-block btn-primary btn-sm OfficersEdit" data-toggle="modal"><i class="fas fa-edit"></i></button>';
+                            let del = '<button data-id="' + data + '" class="btn d-sm-inline-block btn-danger btn-sm OfficersDelete"><i class="fas fa-trash"></i></button>';
                             return type === 'display' ?
                                 edit+'&nbsp;'+del : null;
                         } else {
