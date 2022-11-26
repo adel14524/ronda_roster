@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> --}}
     <link rel="stylesheet" href="{{ asset('css/roster.css') }}" type="text/css" />
-    <script src="//unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+    {{-- <script src="//unpkg.com/pagedjs/dist/paged.polyfill.js"></script> --}}
+    <script src="{{ asset('js/paged.polyfill.js') }}"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     <title>POLIS</title>

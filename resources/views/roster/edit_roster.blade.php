@@ -130,7 +130,9 @@
                                                 <div class="row mb-3">
                                                     @php
                                                         // $pejabat = json_decode($jawatan['pejabatBpjkk']);
-                                                        // dd($jawatan['pejabatBpjkk']);
+                                                        if (!empty($jawatan['pejabatBpjkk'])) {
+                                                            $jawatan['pejabatBpjkk'] = '-';
+                                                        }
                                                     @endphp
                                                     <label for="pejabatBpjkk" class="col-sm-3 col-form-label">PEJABAT BPJKK</label>
                                                     <div class="col-sm-9">
@@ -204,7 +206,7 @@
                                                     @endforeach
                                                     <input type="hidden" id="countCuti" name="countCuti" value="1">
                                                     <div class="tambahCuti"></div>
-                                                
+
                                             </div>
                                             <div class="card-footer">
                                                 <small>

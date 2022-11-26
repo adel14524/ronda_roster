@@ -33,6 +33,7 @@
                             @endif --}}
                             <div class="table-responsive">
                                 <table class="table align-items-center table-flush datatable" id="CarsTable">
+                                {{-- <table class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline" id="CarsTable" style="border-collapse: collapse; border-spacing: 0px; width: 100%;"> --}}
                                     <thead>
                                         <tr>
                                             <th style="text-center">#</th>
@@ -70,7 +71,7 @@
                                 <div class="form-group">
                                     <label for="kodKereta">Kod Kereta</label>
                                     <input type="text" name="code" class="form-control" placeholder="cth: KD41" required>
-                                </div>  
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-ban"></i>&ensp;Batal</button>

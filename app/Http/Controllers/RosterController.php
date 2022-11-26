@@ -259,7 +259,7 @@ class RosterController extends Controller
 
     public function edit(Request $request)
     {
-        
+
         try {
             $id = Crypt::decrypt($request->id);
         } catch (\Throwable $th) {
@@ -278,6 +278,11 @@ class RosterController extends Controller
 
     public function destroy($id)
     {
+        try {
+            $id = Crypt::decrypt($id);
+        } catch (\Throwable $th) {
+            return $th;
+        }
         Roster::find($id)->forceDelete();
 
         return redirect()->back()->with('message', 'The report successfully has been deleted.');
