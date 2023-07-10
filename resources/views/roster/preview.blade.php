@@ -21,12 +21,6 @@
                         <div class="card-body align-content-center">
                             <iframe id="print" src="{{ route('rosters.iframe', ['id' => $id]) }}"  title="APMenengah"
                                 style="width:100%; min-height: 1200px; border: 1px solid #ddd;background-color:#fff;"></iframe>
-
-                            {{-- <div style="width: 100%">
-                                <iframe id="print" src="{{ route('instruments.iframe', ['id' => $id]) }}" title="APMenengah"
-                                    style="width:100%; min-height: 1200px; border: 1px solid #ddd;background-color:#fff;">
-                            </div> --}}
-
                         </div>
                     </div>
                 </div>

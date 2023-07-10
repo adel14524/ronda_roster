@@ -3,7 +3,7 @@
 @section('admin')
     <div class="page-content">
         <div class="container-fluid">
-            
+
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
@@ -34,10 +34,10 @@
                                 </div>
                                 <div class="avatar-sm">
                                     <span class="avatar-title bg-light text-primary rounded-3">
-                                        <i class="mdi mdi-calendar-text font-size-24"></i>  
+                                        <i class="mdi mdi-calendar-text font-size-24"></i>
                                     </span>
                                 </div>
-                            </div>                                            
+                            </div>
                         </div><!-- end cardbody -->
                     </div><!-- end card -->
                 </div><!-- end col -->
@@ -52,10 +52,10 @@
                                 </div>
                                 <div class="avatar-sm">
                                     <span class="avatar-title bg-light text-success rounded-3">
-                                        <i class="mdi mdi-police-badge font-size-24"></i>  
+                                        <i class="mdi mdi-police-badge font-size-24"></i>
                                     </span>
                                 </div>
-                            </div>                                              
+                            </div>
                         </div><!-- end cardbody -->
                     </div><!-- end card -->
                 </div><!-- end col -->
@@ -70,10 +70,10 @@
                                 </div>
                                 <div class="avatar-sm">
                                     <span class="avatar-title bg-light text-primary rounded-3">
-                                        <i class="ri-police-car-fill font-size-24"></i>  
+                                        <i class="ri-police-car-fill font-size-24"></i>
                                     </span>
                                 </div>
-                            </div>                                              
+                            </div>
                         </div><!-- end cardbody -->
                     </div><!-- end card -->
                 </div><!-- end col -->
@@ -83,11 +83,34 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body">
+                            @php
+                                $today = date('d/m/Y');
+                                $checkRoster = \App\Models\Roster::select('id','tarikh_mula')->orderBy('tarikh_mula', 'desc')->first();
+                                $rosterDate = date('d/m/Y', strtotime($checkRoster->tarikh_mula));
+                                $id = $checkRoster->id;
+                            @endphp
+                            <div class="row d-flex">
 
-                            <h4 class="card-title mb-4">Jadual Hari Ini</h4>
+                                <div class="col">
+                                    <h4 class="card-title mb-4">Jadual Hari Ini ({{ $today }})</h4>
+                                </div>
+                                <div class="col">
+                                    {{-- <a class="btn btn-sm btn-primary float-right" href="{{ route('rosters.home') }}"><i class="fas fa-arrow-left"></i>&ensp;Kembali</a> --}}
+                                    <button type="button" class="btn btn-sm btn-light bg-primary btn-icon d-none d-md-block js-print-question float-right" onclick="document.getElementById('print').contentWindow.print();"><span style="color:white">Cetak</span> &nbsp;<i class="fas fa-print text-light"></i></button>
+                                </div>
+                            </div>
 
-                            <div class="table-responsive">
-                                <table class="table table-centered mb-0 align-middle table-hover table-nowrap">
+                            @if ($today == $rosterDate)
+                                <iframe id="print" src="{{ route('rosters.iframe', ['id' => $id]) }}"  title="APMenengah"
+                                    style="width:100%; min-height: 1200px; border: 1px solid #ddd;background-color:#fff;"></iframe>
+                            @else
+                                <div class="alert alert-danger" role="alert">
+                                    Jadual rondaan harini belum dibuat.
+                                </div>
+                            @endif
+
+                            {{-- <div class="table-responsive"> --}}
+                                {{-- <table class="table table-centered mb-0 align-middle table-hover table-nowrap">
                                     <thead class="table-light">
                                         <tr>
                                             <th>Name</th>
@@ -205,8 +228,9 @@
                                         </tr>
                                         <!-- end -->
                                     </tbody><!-- end tbody -->
-                                </table> <!-- end table -->
-                            </div>
+                                </table> --}}
+                                <!-- end table -->
+                            {{-- </div> --}}
                         </div><!-- end card -->
                     </div><!-- end card -->
                 </div>
@@ -214,6 +238,6 @@
             </div>
             <!-- end row -->
         </div>
-        
-    </div> 
+
+    </div>
 @endsection

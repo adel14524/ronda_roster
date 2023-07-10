@@ -32,6 +32,9 @@
 
         $pad_left = 3;
 
+        $rosterObj = new App\Models\Roster();
+        $officer = new App\Models\Officer();
+        $car = new App\Models\Car();
     @endphp
 
     <style>
@@ -131,11 +134,14 @@
                             @php
                                 $tarikh_mula = strtotime($roster->tarikh_mula);
                                 $mula = date('D', $tarikh_mula);
+                                $tm = date('d/m/Y', $tarikh_mula);
 
                                 $tarikh_habis = strtotime($roster->tarikh_habis);
                                 $habis = date('D', $tarikh_habis);
+                                $tb = date('d/m/Y', $tarikh_habis);
+
                             @endphp
-                            TARIKH: <br> {{$roster->tarikh_mula  }} ({{ \App\Models\Roster::getHari($mula) }}) <br> {{ $roster->tarikh_habis }} ({{ \App\Models\Roster::getHari($habis) }})
+                            TARIKH: <br> {{$tm  }} ({{ $rosterObj->getHari($mula) }}) <br> {{ $tb }} ({{ $rosterObj->getHari($habis) }})
                         </td>
                     </tr>
                     <tr>
@@ -166,14 +172,14 @@
                                     <tr  class="anggota_pgkt_jwtn ">
                                         <td class="textCtr no_left_border">PANGKAT</td>
                                         @for ($i = 0; $i < 11; $i++)
-                                            <td class="textCtr" data-value="{{ $i }}">{{ \App\Models\Officer::getRoleBatch($i) }}</td>
+                                            <td class="textCtr" data-value="{{ $i }}">{{ $officer->getRoleBatch($i) }}</td>
                                         @endfor
                                         <td class="textCtr no_left_border">JUM</td>
                                     </tr>
                                     <tr   class="anggota_pgkt_jwtn ">
                                         <td class="textCtr no_left_border">JAWATAN</td>
                                         @for ($i = 0; $i < 11; $i++)
-                                            <td class="textCtr ">{{ \App\Models\Officer::countRole($i) }}</td>
+                                            <td class="textCtr ">{{ $officer->countRole($i) }}</td>
                                         @endfor
                                         <td class="textCtr no_left_border">{{ \App\Models\Officer::count() }}</td>
                                     </tr>
@@ -185,22 +191,22 @@
                                     @php $i = 1; @endphp
                                     @foreach ($position as $key => $pos)
                                         <tr  style="line-height: 5mm" >
-                                            <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" >{{ $i }}. {{ \App\Models\Officer::getJawatan($key) }}</td>
+                                            <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" >{{ $i }}. {{ $officer->getJawatan($key) }}</td>
                                             @if ($key == 'pejabatBpjkk')
                                                 <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" >
                                                     @if (!empty($pos))
                                                         @foreach ($pos as $id)
-                                                            {{ \App\Models\Officer::getOfficerBatchNum($id)  }},&nbsp;
+                                                            {{ $officer->getOfficerBatchNum($id)  }},&nbsp;
                                                         @endforeach
                                                     @endif
                                                 </td>
                                             @else
                                                 @switch($i)
                                                     @case(1)
-                                                        <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" > {{ \App\Models\Officer::getOfficerBatchNum($pos)  }} {{ \App\Models\Officer::getOfficername($pos)  }}</td>
+                                                        <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" > {{ $officer->getOfficerBatchNum($pos)  }} {{ $officer->getOfficername($pos)  }}</td>
                                                         @break
                                                     @default
-                                                    <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" > {{ \App\Models\Officer::getOfficerBatchNum($pos)  }}</td>
+                                                    <td class=" pad-left no_left_border" style="width: {{ $mainTable1Width/2 - $pad_left }}mm;" > {{ $officer->getOfficerBatchNum($pos)  }}</td>
 
                                                 @endswitch
                                             @endif
@@ -223,7 +229,7 @@
                                             <br><br>
 
                                             @foreach ($leave as $cuti)
-                                                {{ \App\Models\Officer::getOfficerBatchNum($cuti['anggota'])  }}
+                                                {{ $officer->getOfficerBatchNum($cuti['anggota'])  }}
                                                 <br>
                                                 {{-- {{ dd($cuti['start']) }} --}}
                                                 @php
@@ -248,7 +254,7 @@
                                             <br>
                                             <br>
                                             @foreach ($sick as $cuti)
-                                                {{ \App\Models\Officer::getOfficerBatchNum($cuti['anggota'])  }}
+                                                {{ $officer->getOfficerBatchNum($cuti['anggota'])  }}
                                                 <br>
                                                 {{-- {{ dd($cuti['start']) }} --}}
                                                 @php
@@ -282,7 +288,7 @@
                                         <td class="no_xy_border">
                                             @if (!empty($control))
                                                 @foreach ($control as $ctrl)
-                                                    {{ \App\Models\Officer::getOfficerBatchNum($ctrl) }}
+                                                    {{ $officer->getOfficerBatchNum($ctrl) }}
                                                 @endforeach
                                             @endif
                                         </td>
@@ -300,26 +306,26 @@
                                     </tr>
                                     <tr class="anggota_pgkt_jwtn textCtr">
                                         @foreach ($sv_mpv['co'] as $key => $co)
-                                            <td class="{{ $key == 0 ? 'no_left_border' : $key == 2 ? 'no_right_border' : '' }}">
+                                            <td class="{{ $key == 0 ? 'no_left_border' : ($key == 2 ? 'no_right_border' : '') }}">
                                                 {{-- {{ $co }} --}}
-                                                {{ \App\Models\Officer::getOfficerBatchNum($co)  }} (C)
+                                                {{ $officer->getOfficerBatchNum($co)  }} (C)
                                             </td>
                                         @endforeach
                                     </tr>
                                     <tr class="anggota_pgkt_jwtn textCtr">
                                         @foreach ($sv_mpv['pilot'] as $key => $pilot)
-                                            <td class="{{ $key == 0 ? 'no_left_border' : $key == 2 ? 'no_right_border' : '' }}">
+                                            <td class="{{ $key == 0 ? 'no_left_border' : ($key == 2 ? 'no_right_border' : '') }}">
                                                 {{-- {{ $co }} --}}
-                                                {{ \App\Models\Officer::getOfficerBatchNum($pilot)  }} (P)
+                                                {{ $officer->getOfficerBatchNum($pilot)  }} (P)
                                             </td>
                                         @endforeach
                                     </tr>
                                     <tr class="anggota_pgkt_jwtn textCtr">
                                         @foreach ($sv_mpv['kereta'] as $key => $kereta)
-                                            <td class="{{ $key == 0 ? 'no_left_border' : $key == 2 ? 'no_right_border' : '' }}">
+                                            <td class="{{ $key == 0 ? 'no_left_border' : ($key == 2 ? 'no_right_border' : '') }}">
                                                 {{-- {{ $co }} --}}
                                                 {{-- {{ $kereta }} --}}
-                                                ({{ !empty(\App\Models\Car::getCar($kereta)) ? \App\Models\Car::getCar($kereta)->code : '-'  }}) {{ !empty(\App\Models\Car::getCar($kereta)) ? \App\Models\Car::getCar($kereta)->no_plate : '-'  }}
+                                                ({{ !empty($car->getCar($kereta)) ? $car->getCar($kereta)->code : '-'  }}) {{ !empty($car->getCar($kereta)) ? $car->getCar($kereta)->no_plate : '-'  }}
                                             </td>
                                         @endforeach
                                     </tr>
@@ -335,7 +341,7 @@
                                             <br>
                                             @if (!empty($dep_sv))
                                                 @foreach ($dep_sv as $dep)
-                                                    {{ \App\Models\Officer::getOfficerBatchNum($dep)  }} &nbsp;
+                                                    {{ $officer->getOfficerBatchNum($dep)  }} &nbsp;
                                                 @endforeach
                                             @endif
                                         </td>
@@ -366,7 +372,7 @@
                                             <td class="pad-left" style="width: {{ $mainTable3Width }}mm">
                                                 @if ($task['pegawai'] != '-')
                                                     @foreach ($task['pegawai'] as $peg)
-                                                        {{ \App\Models\Officer::getOfficerBatchNum($peg)  }}, &nbsp;
+                                                        {{ $officer->getOfficerBatchNum($peg)  }}, &nbsp;
                                                     @endforeach
                                                 @endif
                                             </td>
@@ -382,7 +388,7 @@
                                             @if (!empty($departure))
 
                                                 @foreach ($departure as $dep)
-                                                        {{ \App\Models\Officer::getOfficerBatchNum($dep)  }}, &nbsp;
+                                                        {{ $officer->getOfficerBatchNum($dep)  }}, &nbsp;
                                                 @endforeach
                                             @endif
                                         </td>
@@ -432,8 +438,8 @@
                                                         <table style="border: none;">
                                                             <tbody style="border: none;">
                                                                 <tr style="border: none; text-align: center" >
-                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['co']['ronda_'.$cat.$time.'_Co1']) ? \App\Models\Officer::getOfficerBatchNum($zone_AB['co']['ronda_'.$cat.$time.'_Co1']) : '-' }}</td>
-                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['co']['ronda_'.$cat.$time.'_Co2']) ? \App\Models\Officer::getOfficerBatchNum($zone_AB['co']['ronda_'.$cat.$time.'_Co2']) : '-' }}</td>
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['co']['ronda_'.$cat.$time.'_Co1']) ? $officer->getOfficerBatchNum($zone_AB['co']['ronda_'.$cat.$time.'_Co1']) : '-' }}</td>
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['co']['ronda_'.$cat.$time.'_Co2']) ? $officer->getOfficerBatchNum($zone_AB['co']['ronda_'.$cat.$time.'_Co2']) : '-' }}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -446,8 +452,8 @@
                                                         <table style="border: none;">
                                                             <tbody style="border: none;">
                                                                 <tr style="border: none; text-align: center" >
-                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['co']['ronda_'.$cat.$time.'_Co1']) ? \App\Models\Officer::getOfficerBatchNum($zone_CD['co']['ronda_'.$cat.$time.'_Co1']) : '-' }}</td>
-                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['co']['ronda_'.$cat.$time.'_Co2']) ? \App\Models\Officer::getOfficerBatchNum($zone_CD['co']['ronda_'.$cat.$time.'_Co2']) : '-' }}</td>
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['co']['ronda_'.$cat.$time.'_Co1']) ? $officer->getOfficerBatchNum($zone_CD['co']['ronda_'.$cat.$time.'_Co1']) : '-' }}</td>
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['co']['ronda_'.$cat.$time.'_Co2']) ? $officer->getOfficerBatchNum($zone_CD['co']['ronda_'.$cat.$time.'_Co2']) : '-' }}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -460,8 +466,8 @@
                                                         <table style="border: none;">
                                                             <tbody style="border: none;">
                                                                 <tr style="border: none; text-align: center" >
-                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['co']['ronda_'.$cat.$time.'_Co1']) ? \App\Models\Officer::getOfficerBatchNum($zone_EF['co']['ronda_'.$cat.$time.'_Co1']) : '-' }}</td>
-                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['co']['ronda_'.$cat.$time.'_Co2']) ? \App\Models\Officer::getOfficerBatchNum($zone_EF['co']['ronda_'.$cat.$time.'_Co2']) : '-' }}</td>
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['co']['ronda_'.$cat.$time.'_Co1']) ? $officer->getOfficerBatchNum($zone_EF['co']['ronda_'.$cat.$time.'_Co1']) : '-' }}</td>
+                                                                    <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['co']['ronda_'.$cat.$time.'_Co2']) ? $officer->getOfficerBatchNum($zone_EF['co']['ronda_'.$cat.$time.'_Co2']) : '-' }}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -476,8 +482,8 @@
                                                     <td class="no_border" style="width: {{ $jam }}mm;">
                                                         <table style="border: none">
                                                             <tr style="border: none; text-align: center" >
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi1']) ? \App\Models\Officer::getOfficerBatchNum($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi1']) : '-' }}</td>
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi2']) ? \App\Models\Officer::getOfficerBatchNum($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi2']) : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi1']) ? $officer->getOfficerBatchNum($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi1']) : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi2']) ? $officer->getOfficerBatchNum($zone_AB['pilot']['ronda_'.$cat.$time.'_Pi2']) : '-' }}</td>
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -488,8 +494,8 @@
                                                     <td class="no_border" style="width: {{ $jam }}mm;">
                                                         <table style="border: none">
                                                             <tr style="border: none; text-align: center" >
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi1']) ? \App\Models\Officer::getOfficerBatchNum($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi1']) : '-' }}</td>
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi2']) ? \App\Models\Officer::getOfficerBatchNum($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi2']) : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi1']) ? $officer->getOfficerBatchNum($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi1']) : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi2']) ? $officer->getOfficerBatchNum($zone_CD['pilot']['ronda_'.$cat.$time.'_Pi2']) : '-' }}</td>
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -499,8 +505,8 @@
                                                     <td class="no_border" style="width: {{ $jam }}mm;">
                                                         <table style="border: none">
                                                             <tr style="border: none; text-align: center" >
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi1']) ? \App\Models\Officer::getOfficerBatchNum($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi1']) : '-' }}</td>
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi2']) ? \App\Models\Officer::getOfficerBatchNum($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi2']) : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi1']) ? $officer->getOfficerBatchNum($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi1']) : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi2']) ? $officer->getOfficerBatchNum($zone_EF['pilot']['ronda_'.$cat.$time.'_Pi2']) : '-' }}</td>
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -515,8 +521,8 @@
                                                     <td class="no_border" style="width: {{ $jam }}mm;">
                                                         <table style="border: none">
                                                             <tr style="border: none; text-align: center" >
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta1']) ? '('.\App\Models\Car::getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta1'])->code.') '.\App\Models\Car::getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta1'])->no_plate  : '-' }}</td>
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta2']) ? '('.\App\Models\Car::getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta2'])->code.') '.\App\Models\Car::getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta2'])->no_plate  : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta1']) ? '('.$car->getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta1'])->code.') '.$car->getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta1'])->no_plate  : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta2']) ? '('.$car->getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta2'])->code.') '.$car->getCar($zone_AB['kereta']['ronda_'.$cat.$time.'_Kereta2'])->no_plate  : '-' }}</td>
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -526,8 +532,8 @@
                                                     <td class="no_border" style="width: {{ $jam }}mm;">
                                                         <table style="border: none">
                                                             <tr style="border: none; text-align: center" >
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta1']) ? '('.\App\Models\Car::getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta1'])->code.') '.\App\Models\Car::getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta1'])->no_plate  : '-' }}</td>
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta2']) ? '('.\App\Models\Car::getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta2'])->code.') '.\App\Models\Car::getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta2'])->no_plate  : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta1']) ? '('.$car->getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta1'])->code.') '.$car->getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta1'])->no_plate  : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta2']) ? '('.$car->getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta2'])->code.') '.$car->getCar($zone_CD['kereta']['ronda_'.$cat.$time.'_Kereta2'])->no_plate  : '-' }}</td>
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -537,8 +543,8 @@
                                                     <td class="no_border" style="width: {{ $jam }}mm;">
                                                         <table style="border: none">
                                                             <tr style="border: none; text-align: center" >
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta1']) ? '('.\App\Models\Car::getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta1'])->code.') '.\App\Models\Car::getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta1'])->no_plate  : '-' }}</td>
-                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta2']) ? '('.\App\Models\Car::getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta2'])->code.') '.\App\Models\Car::getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta2'])->no_plate  : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta1']) ? '('.$car->getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta1'])->code.') '.$car->getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta1'])->no_plate  : '-' }}</td>
+                                                                <td  style="width: {{ ($jam/2)-0.5 }}mm;">{{ !empty($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta2']) ? '('.$car->getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta2'])->code.') '.$car->getCar($zone_EF['kereta']['ronda_'.$cat.$time.'_Kereta2'])->no_plate  : '-' }}</td>
                                                             </tr>
                                                         </table>
                                                     </td>

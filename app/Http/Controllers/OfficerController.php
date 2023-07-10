@@ -18,7 +18,7 @@ class OfficerController extends Controller
         $results = Officer::all();
         foreach ($results as $key => $result) {
 
-            $result->pangkat = Officer::getRoleBatch($result->role_batch);
+            $result->pangkat = $this->getRoleBatch($result->role_batch);
         }
 
         if($request->optionOfficer){
@@ -102,5 +102,23 @@ class OfficerController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    }
+
+    function getRoleBatch($id = null){
+
+        $role = [
+            1  =>  'ASP',
+            2  =>  'SM',
+            3  =>  'SJN',
+            4  =>  'KPL',
+            5  =>  'L/KPL',
+            6  =>  'KONS',
+            7  =>  'KPL/S',
+            8  =>  'LK/S',
+            9  =>  'K/S',
+            10  =>  'KA',
+        ];
+
+        return !empty($id) ? $role[$id] : '' ;
     }
 }
